@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace GUI.Views
 {
-    public partial class DangNhap : Form
+    public partial class NhanVien : Form
     {
-        public DangNhap()
+        public NhanVien()
         {
             InitializeComponent();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
