@@ -72,7 +72,7 @@
             label9.ForeColor = SystemColors.ControlLightLight;
             label9.Image = (Image)resources.GetObject("label9.Image");
             label9.ImageAlign = ContentAlignment.MiddleLeft;
-            label9.Location = new Point(5, 608);
+            label9.Location = new Point(5, 503);
             label9.Margin = new Padding(2);
             label9.Name = "label9";
             label9.Size = new Size(210, 61);
@@ -228,15 +228,16 @@
             panel1.Controls.Add(label10);
             panel1.Location = new Point(226, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(903, 835);
+            panel1.Size = new Size(1300, 720);
             panel1.TabIndex = 10;
+            panel1.Paint += panel1_Paint;
             // 
             // TrangChu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.RoyalBlue;
-            ClientSize = new Size(1128, 848);
+            ClientSize = new Size(1532, 753);
             Controls.Add(panel1);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);

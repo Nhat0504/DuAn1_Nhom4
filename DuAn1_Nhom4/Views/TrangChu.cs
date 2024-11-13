@@ -19,18 +19,18 @@ namespace GUI.Views
 
         private void btn_BanHang_Click(object sender, EventArgs e)
         {
-            this.panel1.Controls.Clear();
-            BanHang frm_banSanPham = new BanHang() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            this.panel1.Controls.Add(frm_banSanPham);
-            frm_banSanPham.Show();
+            this.panel1.Controls.Clear(); // Xóa hết các điều khiển hiện tại trong panel1
+            BanHangUserControl frm_banHang = new BanHangUserControl() { Dock = DockStyle.Fill };
+            // Tạo một đối tượng BanHangUserControl, dock nó vào panel1
+            this.panel1.Controls.Add(frm_banHang); // Thêm BanHangUserControl vào panel1
         }
+
 
         private void btn_SanPham_Click(object sender, EventArgs e)
         {
             this.panel1.Controls.Clear();
-            SanPham frm_banSanPham = new SanPham() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            this.panel1.Controls.Add(frm_banSanPham);
-            frm_banSanPham.Show();
+            SanPhamUserControl frm_sanPham = new SanPhamUserControl() { Dock = DockStyle.Fill };
+            this.panel1.Controls.Add(frm_sanPham);
         }
 
         private void btn_DangXuat_Click(object sender, EventArgs e)
@@ -76,6 +76,11 @@ namespace GUI.Views
             ThongKe frm_banSanPham = new ThongKe() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
             this.panel1.Controls.Add(frm_banSanPham);
             frm_banSanPham.Show();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
