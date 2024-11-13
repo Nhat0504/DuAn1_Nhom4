@@ -21,5 +21,12 @@ namespace GUI.Views
         {
 
         }
+
+        private void btn_DangNhap_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            TrangChu trangChu = new TrangChu();
+            trangChu.Show();
+        }
     }
 }

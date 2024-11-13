@@ -34,7 +34,6 @@
             label8 = new Label();
             label7 = new Label();
             label6 = new Label();
-            label5 = new Label();
             label4 = new Label();
             SanPham = new Label();
             label1 = new Label();
@@ -55,7 +54,6 @@
             groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(label7);
             groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(SanPham);
             groupBox1.Controls.Add(label1);
@@ -88,7 +86,7 @@
             label8.ForeColor = SystemColors.ControlLightLight;
             label8.Image = (Image)resources.GetObject("label8.Image");
             label8.ImageAlign = ContentAlignment.MiddleLeft;
-            label8.Location = new Point(5, 415);
+            label8.Location = new Point(5, 350);
             label8.Margin = new Padding(2);
             label8.Name = "label8";
             label8.Size = new Size(210, 61);
@@ -104,7 +102,7 @@
             label7.ForeColor = SystemColors.ControlLightLight;
             label7.Image = (Image)resources.GetObject("label7.Image");
             label7.ImageAlign = ContentAlignment.MiddleLeft;
-            label7.Location = new Point(5, 350);
+            label7.Location = new Point(5, 285);
             label7.Margin = new Padding(2);
             label7.Name = "label7";
             label7.Size = new Size(210, 61);
@@ -120,7 +118,7 @@
             label6.ForeColor = SystemColors.ControlLightLight;
             label6.Image = (Image)resources.GetObject("label6.Image");
             label6.ImageAlign = ContentAlignment.MiddleLeft;
-            label6.Location = new Point(5, 285);
+            label6.Location = new Point(5, 220);
             label6.Margin = new Padding(2);
             label6.Name = "label6";
             label6.Size = new Size(210, 61);
@@ -128,22 +126,6 @@
             label6.Text = "Nhân Viên";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             label6.Click += btn_NhanVien_Click;
-            // 
-            // label5
-            // 
-            label5.BackColor = Color.Navy;
-            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            label5.ForeColor = SystemColors.ControlLightLight;
-            label5.Image = (Image)resources.GetObject("label5.Image");
-            label5.ImageAlign = ContentAlignment.MiddleLeft;
-            label5.Location = new Point(5, 220);
-            label5.Margin = new Padding(2);
-            label5.Name = "label5";
-            label5.Size = new Size(210, 61);
-            label5.TabIndex = 5;
-            label5.Text = "Khuyến Mãi";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
-            label5.Click += btn_KhuyenMai_Click;
             // 
             // label4
             // 
@@ -259,7 +241,6 @@
         private Label label1;
         private Label SanPham;
         private Label label6;
-        private Label label5;
         private Label label4;
         private Label label7;
         private Label label9;

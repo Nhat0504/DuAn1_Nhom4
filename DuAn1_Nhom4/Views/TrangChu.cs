@@ -41,17 +41,13 @@ namespace GUI.Views
         private void btn_HoaDon_Click(object sender, EventArgs e)
         {
             this.panel1.Controls.Clear();
-            HoaDon frm_banSanPham = new HoaDon() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            this.panel1.Controls.Add(frm_banSanPham);
-            frm_banSanPham.Show();
+            HoaDonUserControl frm_sanPham = new HoaDonUserControl() { Dock = DockStyle.Fill };
+            this.panel1.Controls.Add(frm_sanPham);
         }
 
         private void btn_KhuyenMai_Click(object sender, EventArgs e)
         {
-            this.panel1.Controls.Clear();
-            KhuyenMai frm_banSanPham = new KhuyenMai() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            this.panel1.Controls.Add(frm_banSanPham);
-            frm_banSanPham.Show();
+           
         }
 
         private void btn_NhanVien_Click(object sender, EventArgs e)

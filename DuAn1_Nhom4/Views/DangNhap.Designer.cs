@@ -46,6 +46,7 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.ForeColor = SystemColors.ControlLightLight;
             label1.Location = new Point(81, 126);
             label1.Name = "label1";
             label1.Size = new Size(46, 20);
@@ -56,6 +57,7 @@
             // label2
             // 
             label2.AutoSize = true;
+            label2.ForeColor = SystemColors.ControlLightLight;
             label2.Location = new Point(81, 254);
             label2.Name = "label2";
             label2.Size = new Size(72, 20);
@@ -73,6 +75,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            label3.ForeColor = SystemColors.ControlLightLight;
             label3.Location = new Point(286, 36);
             label3.Margin = new Padding(10, 0, 10, 0);
             label3.Name = "label3";
@@ -90,11 +93,13 @@
             btn_DangNhap.TabIndex = 5;
             btn_DangNhap.Text = "Đăng Nhập";
             btn_DangNhap.UseVisualStyleBackColor = false;
+            btn_DangNhap.Click += btn_DangNhap_Click;
             // 
             // DangNhap
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Navy;
             ClientSize = new Size(800, 450);
             Controls.Add(btn_DangNhap);
             Controls.Add(label3);
