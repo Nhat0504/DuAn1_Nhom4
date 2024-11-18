@@ -2,39 +2,6 @@
   "version": 3,
   "targets": {
     "net8.0": {
-      "AForge/2.2.4": {
-        "type": "package",
-        "compile": {
-          "lib/AForge.dll": {}
-        },
-        "runtime": {
-          "lib/AForge.dll": {}
-        }
-      },
-      "AForge.Video/2.2.4": {
-        "type": "package",
-        "dependencies": {
-          "AForge": "2.2.4"
-        },
-        "compile": {
-          "lib/AForge.Video.dll": {}
-        },
-        "runtime": {
-          "lib/AForge.Video.dll": {}
-        }
-      },
-      "AForge.Video.DirectShow/2.2.4": {
-        "type": "package",
-        "dependencies": {
-          "AForge.Video": "2.2.4"
-        },
-        "compile": {
-          "lib/AForge.Video.DirectShow.dll": {}
-        },
-        "runtime": {
-          "lib/AForge.Video.DirectShow.dll": {}
-        }
-      },
       "Azure.Core/1.25.0": {
         "type": "package",
         "dependencies": {
@@ -2702,45 +2669,6 @@
     }
   },
   "libraries": {
-    "AForge/2.2.4": {
-      "sha512": "HPlNXmHIy5FYwaTOCE6+FA9hzGh1lfS8eO+p49cJjE2WoopZ4U8oahXFRa7wDnClVpZCSBMXNAVOnrLTC5q6IQ==",
-      "type": "package",
-      "path": "aforge/2.2.4",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "aforge.2.2.4.nupkg.sha512",
-        "aforge.nuspec",
-        "lib/AForge.dll",
-        "lib/AForge.xml"
-      ]
-    },
-    "AForge.Video/2.2.4": {
-      "sha512": "qhj2aHS5TvaunUG+XeYSBnfo1snUSBke+2p4po/qNWHHgl7rJ3zX+f0P1Jic7kheQin8hsKHTtPHW0vKrDE0tA==",
-      "type": "package",
-      "path": "aforge.video/2.2.4",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "aforge.video.2.2.4.nupkg.sha512",
-        "aforge.video.nuspec",
-        "lib/AForge.Video.dll",
-        "lib/AForge.Video.xml"
-      ]
-    },
-    "AForge.Video.DirectShow/2.2.4": {
-      "sha512": "o5sQq13z7OVp0sGA6woaba0Iw07YkTGvwsm0OLnto6Wgu5FKQLJw+b/E8hi5ds43IDq6/B48OtWJXLWyjhCHOA==",
-      "type": "package",
-      "path": "aforge.video.directshow/2.2.4",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "aforge.video.directshow.2.2.4.nupkg.sha512",
-        "aforge.video.directshow.nuspec",
-        "lib/AForge.Video.DirectShow.dll",
-        "lib/AForge.Video.DirectShow.xml"
-      ]
-    },
     "Azure.Core/1.25.0": {
       "sha512": "X8Dd4sAggS84KScWIjEbFAdt2U1KDolQopTPoHVubG2y3CM54f9l6asVrP5Uy384NWXjsspPYaJgz5xHc+KvTA==",
       "type": "package",
@@ -8375,7 +8303,6 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "AForge.Video.DirectShow >= 2.2.4",
       "Microsoft.EntityFrameworkCore >= 8.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.0",
@@ -8389,11 +8316,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\admin\\source\\repos\\DuAn1_Nhom4\\DAL\\DAL.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\Source\\Repos\\DuAn1_Nhom4\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "C:\\Users\\admin\\source\\repos\\DuAn1_Nhom4\\DAL\\DAL.csproj",
+      "projectPath": "C:\\Users\\admin\\Source\\Repos\\DuAn1_Nhom4\\DAL\\DAL.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\admin\\source\\repos\\DuAn1_Nhom4\\DAL\\obj\\",
+      "outputPath": "C:\\Users\\admin\\Source\\Repos\\DuAn1_Nhom4\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8427,10 +8354,6 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
-          "AForge.Video.DirectShow": {
-            "target": "Package",
-            "version": "[2.2.4, )"
-          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[8.0.0, )"
@@ -8475,37 +8398,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'AForge 2.2.4' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
-      "libraryId": "AForge",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'AForge.Video 2.2.4' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
-      "libraryId": "AForge.Video",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'AForge.Video.DirectShow 2.2.4' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
-      "libraryId": "AForge.Video.DirectShow",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }
