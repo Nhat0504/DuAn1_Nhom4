@@ -38,21 +38,21 @@
             groupBox3 = new GroupBox();
             dataGridView3 = new DataGridView();
             groupBox4 = new GroupBox();
-            textBox5 = new TextBox();
-            textBox4 = new TextBox();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
-            button6 = new Button();
-            button5 = new Button();
-            button4 = new Button();
+            txt_Ten = new TextBox();
+            txt_giaban = new TextBox();
+            txt_MLSP = new TextBox();
+            txt_SoLuong = new TextBox();
+            txt_ma = new TextBox();
+            btn_xoa = new Button();
+            btn_sua = new Button();
+            btn_Add = new Button();
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
-            label2 = new Label();
             label1 = new Label();
             groupBox5 = new GroupBox();
-            dataGridView1 = new DataGridView();
+            dgrid_SanPham = new DataGridView();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             groupBox2.SuspendLayout();
@@ -60,7 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
             groupBox4.SuspendLayout();
             groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgrid_SanPham).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -160,18 +160,18 @@
             // 
             // groupBox4
             // 
-            groupBox4.Controls.Add(textBox5);
-            groupBox4.Controls.Add(textBox4);
-            groupBox4.Controls.Add(textBox3);
-            groupBox4.Controls.Add(textBox2);
-            groupBox4.Controls.Add(button6);
-            groupBox4.Controls.Add(button5);
-            groupBox4.Controls.Add(button4);
+            groupBox4.Controls.Add(txt_Ten);
+            groupBox4.Controls.Add(txt_giaban);
+            groupBox4.Controls.Add(txt_MLSP);
+            groupBox4.Controls.Add(txt_SoLuong);
+            groupBox4.Controls.Add(txt_ma);
+            groupBox4.Controls.Add(btn_xoa);
+            groupBox4.Controls.Add(btn_sua);
+            groupBox4.Controls.Add(btn_Add);
             groupBox4.Controls.Add(label6);
             groupBox4.Controls.Add(label5);
             groupBox4.Controls.Add(label4);
             groupBox4.Controls.Add(label3);
-            groupBox4.Controls.Add(label2);
             groupBox4.Controls.Add(label1);
             groupBox4.ForeColor = SystemColors.ControlLightLight;
             groupBox4.Location = new Point(426, 26);
@@ -181,67 +181,77 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Thông Tin Sản Phẩm";
             // 
-            // textBox5
+            // txt_Ten
             // 
-            textBox5.Location = new Point(161, 208);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(193, 27);
-            textBox5.TabIndex = 12;
+            txt_Ten.Location = new Point(161, 77);
+            txt_Ten.Name = "txt_Ten";
+            txt_Ten.Size = new Size(193, 27);
+            txt_Ten.TabIndex = 13;
             // 
-            // textBox4
+            // txt_giaban
             // 
-            textBox4.Location = new Point(161, 161);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(193, 27);
-            textBox4.TabIndex = 11;
+            txt_giaban.Location = new Point(161, 208);
+            txt_giaban.Name = "txt_giaban";
+            txt_giaban.Size = new Size(193, 27);
+            txt_giaban.TabIndex = 12;
             // 
-            // textBox3
+            // txt_MLSP
             // 
-            textBox3.Location = new Point(161, 119);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(193, 27);
-            textBox3.TabIndex = 10;
+            txt_MLSP.Location = new Point(161, 161);
+            txt_MLSP.Name = "txt_MLSP";
+            txt_MLSP.Size = new Size(193, 27);
+            txt_MLSP.TabIndex = 11;
             // 
-            // textBox2
+            // txt_SoLuong
             // 
-            textBox2.Location = new Point(161, 77);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(193, 27);
-            textBox2.TabIndex = 9;
-            textBox2.TextChanged += textBox2_TextChanged;
+            txt_SoLuong.Location = new Point(161, 119);
+            txt_SoLuong.Name = "txt_SoLuong";
+            txt_SoLuong.Size = new Size(193, 27);
+            txt_SoLuong.TabIndex = 10;
             // 
-            // button6
+            // txt_ma
             // 
-            button6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button6.ForeColor = SystemColors.ControlText;
-            button6.Location = new Point(271, 256);
-            button6.Name = "button6";
-            button6.Size = new Size(94, 29);
-            button6.TabIndex = 8;
-            button6.Text = "Xóa";
-            button6.UseVisualStyleBackColor = true;
+            txt_ma.Location = new Point(161, 37);
+            txt_ma.Name = "txt_ma";
+            txt_ma.Size = new Size(193, 27);
+            txt_ma.TabIndex = 9;
+            txt_ma.TextChanged += textBox2_TextChanged;
             // 
-            // button5
+            // btn_xoa
             // 
-            button5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button5.ForeColor = SystemColors.ControlText;
-            button5.Location = new Point(145, 256);
-            button5.Name = "button5";
-            button5.Size = new Size(94, 29);
-            button5.TabIndex = 7;
-            button5.Text = "Sửa";
-            button5.UseVisualStyleBackColor = true;
+            btn_xoa.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_xoa.ForeColor = SystemColors.ControlText;
+            btn_xoa.Location = new Point(271, 256);
+            btn_xoa.Name = "btn_xoa";
+            btn_xoa.Size = new Size(94, 29);
+            btn_xoa.TabIndex = 8;
+            btn_xoa.Text = "Xóa";
+            btn_xoa.UseVisualStyleBackColor = true;
+            btn_xoa.Click += btn_xoa_Click;
             // 
-            // button4
+            // btn_sua
             // 
-            button4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.ForeColor = SystemColors.ControlText;
-            button4.Location = new Point(22, 256);
-            button4.Name = "button4";
-            button4.Size = new Size(94, 29);
-            button4.TabIndex = 6;
-            button4.Text = "Thêm ";
-            button4.UseVisualStyleBackColor = true;
+            btn_sua.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_sua.ForeColor = SystemColors.ControlText;
+            btn_sua.Location = new Point(145, 256);
+            btn_sua.Name = "btn_sua";
+            btn_sua.Size = new Size(94, 29);
+            btn_sua.TabIndex = 7;
+            btn_sua.Text = "Sửa";
+            btn_sua.UseVisualStyleBackColor = true;
+            btn_sua.Click += btn_Sua_Click;
+            // 
+            // btn_Add
+            // 
+            btn_Add.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_Add.ForeColor = SystemColors.ControlText;
+            btn_Add.Location = new Point(22, 256);
+            btn_Add.Name = "btn_Add";
+            btn_Add.Size = new Size(94, 29);
+            btn_Add.TabIndex = 6;
+            btn_Add.Text = "Thêm ";
+            btn_Add.UseVisualStyleBackColor = true;
+            btn_Add.Click += btn_Add_Click;
             // 
             // label6
             // 
@@ -261,9 +271,9 @@
             label5.ForeColor = SystemColors.ControlLightLight;
             label5.Location = new Point(33, 168);
             label5.Name = "label5";
-            label5.Size = new Size(74, 20);
+            label5.Size = new Size(85, 20);
             label5.TabIndex = 4;
-            label5.Text = "Giá Nhập";
+            label5.Text = "Mã Loại Sp";
             // 
             // label4
             // 
@@ -281,27 +291,18 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(33, 80);
+            label3.Location = new Point(36, 40);
             label3.Name = "label3";
             label3.Size = new Size(104, 20);
             label3.TabIndex = 2;
             label3.Text = "Mã Sản Phẩm";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(161, 40);
-            label2.Name = "label2";
-            label2.Size = new Size(51, 20);
-            label2.TabIndex = 1;
-            label2.Text = "label2";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(33, 40);
+            label1.Location = new Point(33, 80);
             label1.Name = "label1";
             label1.Size = new Size(107, 20);
             label1.TabIndex = 0;
@@ -309,7 +310,7 @@
             // 
             // groupBox5
             // 
-            groupBox5.Controls.Add(dataGridView1);
+            groupBox5.Controls.Add(dgrid_SanPham);
             groupBox5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox5.ForeColor = SystemColors.ControlLightLight;
             groupBox5.Location = new Point(3, 359);
@@ -319,14 +320,16 @@
             groupBox5.TabStop = false;
             groupBox5.Text = "Danh Sách Sản phẩm";
             // 
-            // dataGridView1
+            // dgrid_SanPham
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(6, 26);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1222, 310);
-            dataGridView1.TabIndex = 0;
+            dgrid_SanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgrid_SanPham.GridColor = SystemColors.ActiveBorder;
+            dgrid_SanPham.Location = new Point(6, 26);
+            dgrid_SanPham.Name = "dgrid_SanPham";
+            dgrid_SanPham.RowHeadersWidth = 51;
+            dgrid_SanPham.Size = new Size(1222, 310);
+            dgrid_SanPham.TabIndex = 0;
+            dgrid_SanPham.CellClick += dgrid_SanPham_CellClick;
             // 
             // SanPhamUserControl
             // 
@@ -346,7 +349,7 @@
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
             groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgrid_SanPham).EndInit();
             ResumeLayout(false);
         }
 
@@ -366,16 +369,16 @@
         private Label label5;
         private Label label4;
         private Label label3;
-        private Label label2;
         private Label label1;
-        private DataGridView dataGridView1;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private Button button6;
-        private Button button5;
-        private Button button4;
-        private TextBox textBox5;
-        private TextBox textBox4;
+        private DataGridView dgrid_SanPham;
+        private TextBox txt_SoLuong;
+        private TextBox txt_ma;
+        private Button btn_xoa;
+        private Button btn_sua;
+        private Button btn_Add;
+        private TextBox txt_giaban;
+        private TextBox txt_MLSP;
         private DataGridView dataGridView3;
+        private TextBox txt_Ten;
     }
 }
