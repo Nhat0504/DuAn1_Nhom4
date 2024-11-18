@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="Views\BanHangUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\DangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\HoaDonUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\KhachHangUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\NhanVienUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\SanPhamUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\ThongKeUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\TrangChu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
