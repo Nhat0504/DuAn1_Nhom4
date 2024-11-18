@@ -42,8 +42,8 @@
             label3 = new Label();
             label2 = new Label();
             dateTimePicker1 = new DateTimePicker();
-            textBox6 = new TextBox();
-            comboBox1 = new ComboBox();
+            txtMaNhanVien = new TextBox();
+            comboBoxKhachHang = new ComboBox();
             textBox5 = new TextBox();
             textBox4 = new TextBox();
             textBox3 = new TextBox();
@@ -110,6 +110,7 @@
             // 
             textBox1.Location = new Point(567, 14);
             textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Tìm Kiếm";
             textBox1.Size = new Size(299, 27);
             textBox1.TabIndex = 4;
             // 
@@ -132,8 +133,8 @@
             tabPage1.Controls.Add(label3);
             tabPage1.Controls.Add(label2);
             tabPage1.Controls.Add(dateTimePicker1);
-            tabPage1.Controls.Add(textBox6);
-            tabPage1.Controls.Add(comboBox1);
+            tabPage1.Controls.Add(txtMaNhanVien);
+            tabPage1.Controls.Add(comboBoxKhachHang);
             tabPage1.Controls.Add(textBox5);
             tabPage1.Controls.Add(textBox4);
             tabPage1.Controls.Add(textBox3);
@@ -148,7 +149,6 @@
             tabPage1.Size = new Size(295, 461);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Hóa Đơn";
-            tabPage1.Click += tabPage1_Click;
             // 
             // label7
             // 
@@ -160,7 +160,6 @@
             label7.Size = new Size(125, 20);
             label7.TabIndex = 22;
             label7.Text = "Số Tiền Hoàn Lại";
-            label7.Click += label7_Click;
             // 
             // label6
             // 
@@ -224,20 +223,21 @@
             dateTimePicker1.Size = new Size(176, 27);
             dateTimePicker1.TabIndex = 16;
             // 
-            // textBox6
+            // txtMaNhanVien
             // 
-            textBox6.Location = new Point(123, 58);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(125, 27);
-            textBox6.TabIndex = 15;
+            txtMaNhanVien.Location = new Point(123, 58);
+            txtMaNhanVien.Name = "txtMaNhanVien";
+            txtMaNhanVien.Size = new Size(125, 27);
+            txtMaNhanVien.TabIndex = 15;
+            txtMaNhanVien.Leave += txtMaNhanVien_Leave;
             // 
-            // comboBox1
+            // comboBoxKhachHang
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(123, 13);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(164, 28);
-            comboBox1.TabIndex = 14;
+            comboBoxKhachHang.FormattingEnabled = true;
+            comboBoxKhachHang.Location = new Point(123, 13);
+            comboBoxKhachHang.Name = "comboBoxKhachHang";
+            comboBoxKhachHang.Size = new Size(164, 28);
+            comboBoxKhachHang.TabIndex = 14;
             // 
             // textBox5
             // 
@@ -293,6 +293,7 @@
             button1.TabIndex = 3;
             button1.Text = "Tạo Hóa Đơn";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // label1
             // 
@@ -354,7 +355,6 @@
         private GroupBox groupBox1;
         private DataGridView dataGridView1;
         private GroupBox groupBox2;
-        private DataGridView dataGridView2;
         private TextBox textBox1;
         private TabControl tabControl1;
         private TabPage tabPage1;
@@ -368,8 +368,8 @@
         private GroupBox groupBox3;
         private DataGridView dataGridView3;
         private DateTimePicker dateTimePicker1;
-        private TextBox textBox6;
-        private ComboBox comboBox1;
+        private TextBox txtMaNhanVien;
+        private ComboBox comboBoxKhachHang;
         private TextBox textBox5;
         private Label label7;
         private Label label6;
@@ -377,5 +377,6 @@
         private Label label4;
         private Label label3;
         private Label label2;
+        private DataGridView dataGridView2;
     }
 }
