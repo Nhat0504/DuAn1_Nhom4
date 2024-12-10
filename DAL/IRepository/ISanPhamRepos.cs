@@ -11,7 +11,6 @@ namespace DAL.IRepository
     public interface ISanPhamRepos
     {
         public bool Add(SanPham obj);
-        public bool Delete(SanPham obj);
         public List<SanPham> GetAll();
         public bool Update(SanPham obj);
     }

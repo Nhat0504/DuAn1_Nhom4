@@ -190,7 +190,7 @@ public partial class QuanLyBanQuanAoContext : DbContext
             entity.Property(e => e.MaSanPham).ValueGeneratedNever();
             entity.Property(e => e.Gia).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.MaLoaiSp).HasColumnName("MaLoaiSP");
-            entity.Property(e => e.MoTa).HasMaxLength(255);
+            entity.Property(e => e.TrangThai).HasMaxLength(255);
             entity.Property(e => e.TenSanPham).HasMaxLength(50);
 
             entity.HasOne(d => d.MaLoaiSpNavigation).WithMany(p => p.SanPhams)
