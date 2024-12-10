@@ -16,13 +16,16 @@ namespace GUI.Views
     public partial class SanPhamUserControl : UserControl
     {
         private ISanPhamService _iSanPhamservice;
+        private ILoaiSPService _loaiSPservice;
         private SanPham _lstSanPham;
         public SanPhamUserControl()
         {
             InitializeComponent();
             _iSanPhamservice = new SanPhamService();
+            _loaiSPservice = new LoaiSPService();
             _lstSanPham = new SanPham();
             LoadDataFormDb();
+            loadCBX();
         }
         public void LoadDataFormDb()
         {
@@ -33,14 +36,38 @@ namespace GUI.Views
             dgrid_SanPham.Columns[2].Name = "Gia";
             dgrid_SanPham.Columns[3].Name = "SoLuong";
             dgrid_SanPham.Columns[4].Name = "MaLoaiSp";
-            dgrid_SanPham.Columns[5].Name = "MoTa";
+            dgrid_SanPham.Columns[5].Name = "TrangThai";
+            dgrid_SanPham.Rows.Clear();
             foreach (var x in _iSanPhamservice.GetAll())
             {
-                dgrid_SanPham.Rows.Add(x.MaSanPham, x.TenSanPham, x.Gia, x.SoLuong, x.MaLoaiSp, x.MoTa);
+                dgrid_SanPham.Rows.Add(x.MaSanPham, x.TenSanPham, x.Gia, x.SoLuong, x.MaLoaiSp, x.TrangThai == 1 ? "Đang kinh doanh" : "Ngừng kinh doanh");
             }
             dgrid_SanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgrid_SanPham.DefaultCellStyle.ForeColor = Color.Black;
             dgrid_SanPham.Columns["Gia"].DefaultCellStyle.Format = "#,##0 VNĐ";
+        }
+        //public void LoadDataFormDb(string input)
+        //{
+        //    dgrid_SanPham.ColumnCount = 6;
+        //    dgrid_SanPham.Columns[0].Name = "MaSanPham";
+        //    dgrid_SanPham.Columns[0].Visible = true;
+        //    dgrid_SanPham.Columns[1].Name = "TenSanPham";
+        //    dgrid_SanPham.Columns[2].Name = "Gia";
+        //    dgrid_SanPham.Columns[3].Name = "SoLuong";
+        //    dgrid_SanPham.Columns[4].Name = "MaLoaiSp";
+        //    dgrid_SanPham.Columns[5].Name = "TrangThai";
+        //    foreach (var x in _iSanPhamservice.GetAll())
+        //    {
+        //        dgrid_SanPham.Rows.Add(x.MaSanPham, x.TenSanPham, x.Gia, x.SoLuong, x.MaLoaiSp, x.TrangThai == 1 ? "Đang kinh doanh" : "Ngừng kinh doanh");
+        //    }
+        //}
+
+        public void loadCBX()
+        {
+            foreach (var item in _loaiSPservice.GetAll())
+            {
+                cbx_MaloaiSP.Items.Add(item.MaLoaiSp);
+            }
         }
         public bool checknhap()
         {
@@ -56,6 +83,7 @@ namespace GUI.Views
         {
             var maSanPhamCanTim = int.Parse(txt_ma.Text);
             var p = _iSanPhamservice.GetAll().FirstOrDefault(x => x.MaSanPham == maSanPhamCanTim);
+            var b = _loaiSPservice.GetAll().FirstOrDefault(x => x.MaLoaiSp == int.Parse(cbx_MaloaiSP.Text));
             if (checknhap() == false)
             {
                 MessageBox.Show("Không được để trống các trường", "Chú ý");
@@ -70,18 +98,28 @@ namespace GUI.Views
                 DialogResult dialog = MessageBox.Show("Bạn có muốn thêm  không?", "Thêm", MessageBoxButtons.YesNo);
                 if (dialog == DialogResult.Yes)
                 {
-                    var a = new DAL.Models.SanPham()
+                    return;
+                    
+                }
+                try
+                {
+                    var a = new SanPham()
                     {
                         MaSanPham = int.Parse(txt_ma.Text),
                         TenSanPham = txt_Ten.Text,
                         Gia = int.Parse(txt_giaban.Text),
                         SoLuong = int.Parse(txt_SoLuong.Text),
-                        //MaLoaiSp = int.Parse(txt_MLSP.Text)
+                        MaLoaiSp = b.MaLoaiSp,
+                        TrangThai = rb_KD.Checked == true ? 1 : 0,
 
                     };
                     _iSanPhamservice.Add(a);
                     MessageBox.Show("Thêm thành công");
-
+                    reset();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi");
                 }
             }
         }
@@ -92,7 +130,7 @@ namespace GUI.Views
             {
                 MessageBox.Show("Không tìm thấy mã VGA", "Cảnh báo");
             }
-            else if (checknhap() == false)
+            else if (!checknhap())
             {
                 MessageBox.Show("Không được để trống các trường", "Chú ý");
             }
@@ -100,23 +138,39 @@ namespace GUI.Views
             {
                 OpenFileDialog op = new OpenFileDialog();
                 DialogResult dialog = MessageBox.Show("Bạn có muốn sửa không?", "Sửa", MessageBoxButtons.YesNo);
-                if (dialog == DialogResult.Yes)
+                if (dialog != DialogResult.Yes)
                 {
-                    if (_lstSanPham.MaSanPham == int.Parse(txt_ma.Text) && _iSanPhamservice.GetAll().FirstOrDefault(c => c.MaSanPham == int.Parse(txt_ma.Text)) != null)
-                    {
-                        _lstSanPham.MaSanPham = int.Parse(txt_ma.Text);
-                        _lstSanPham.TenSanPham = txt_Ten.Text;
-                        _lstSanPham.Gia = int.Parse(txt_giaban.Text);
-                        _lstSanPham.SoLuong = int.Parse(txt_SoLuong.Text);
-                        _iSanPhamservice.Update(_lstSanPham);
-                        MessageBox.Show("Sửa thành công");
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Không thành công");
-                    }
+                    return;
                 }
+
+                try
+                {
+                    int maSanPham = int.Parse(txt_ma.Text);
+                    var sanPham = _iSanPhamservice.GetAll().FirstOrDefault(c => c.MaSanPham == maSanPham);
+                    var b = _loaiSPservice.GetAll().FirstOrDefault(x => x.MaLoaiSp == int.Parse(cbx_MaloaiSP.Text));
+                    if (sanPham == null)
+                    {
+                        MessageBox.Show("Không tìm thấy sản phẩm có mã này", "Lỗi");
+                        return;
+                    }
+
+                    // Cập nhật thông tin sản phẩm
+                    sanPham.TenSanPham = txt_Ten.Text;
+                    sanPham.Gia = int.Parse(txt_giaban.Text);
+                    sanPham.SoLuong = int.Parse(txt_SoLuong.Text);
+                    b.MaLoaiSp = int.Parse(cbx_MaloaiSP.Text);
+                    sanPham.TrangThai = rb_KD.Checked == true ? 1 : 0;
+                    _iSanPhamservice.Update(sanPham);
+
+                    MessageBox.Show("Sửa thành công");
+                    sd();
+                  
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi");
+                }
+               
             }
         }
 
@@ -135,27 +189,60 @@ namespace GUI.Views
                 txt_Ten.Text = r.Cells[1].Value?.ToString();
                 txt_giaban.Text = r.Cells[2].Value?.ToString();
                 txt_SoLuong.Text = r.Cells[3].Value?.ToString();
-                txt_MLSP.Text = r.Cells[4].Value?.ToString();
+                cbx_MaloaiSP.Text = r.Cells[4].Value?.ToString();
+                rb_KD.Checked = r.Cells[5].Value.ToString() == "Đang kinh doanh";
+                rb_NKD.Checked = r.Cells[5].Value.ToString() == "Ngừng kinh doanh";
 
             }
         }
 
+        public void reset()
+        {
+            LoadDataFormDb();
+            _lstSanPham = null;
+            txt_ma.Text = "";
+            txt_Ten.Text = "";
+            txt_SoLuong.Text = "";
+            txt_giaban.Text = "";
+            cbx_MaloaiSP.Text = "";
+            rb_KD.Checked = false;
+            rb_NKD.Checked = false;
+        }
+        public void sd()
+        {
+            this.panel1.Controls.Clear();
+            SanPhamUserControl frm_sanPham = new SanPhamUserControl() { Dock = DockStyle.Fill };
+            this.panel1.Controls.Add(frm_sanPham);
+        }
+
+
+
+
         private void btn_xoa_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Bạn có chắc chắn muốn xóa không?", "Thông báo", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                if (_lstSanPham == null)
-                {
-                    MessageBox.Show("Không tìm thấy");
-                }
-                else
-                {
-                    _iSanPhamservice.Delete(_lstSanPham);
-                    MessageBox.Show("Xóa thành công");
-               
-                }
-            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.panel1.Controls.Clear();
+            LoaiSPUserControl frm_sanPham = new LoaiSPUserControl() { Dock = DockStyle.Fill };
+            this.panel1.Controls.Add(frm_sanPham);
+            frm_sanPham.Show();
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.panel1.Controls.Clear();
+            CTSPUserControl frm_sanPham = new CTSPUserControl() { Dock = DockStyle.Fill };
+            this.panel1.Controls.Add(frm_sanPham);
+            frm_sanPham.Show();
+        }
+
+        private void Btn_Clear_Click(object sender, EventArgs e)
+        {
+            reset();
         }
     }
 }
