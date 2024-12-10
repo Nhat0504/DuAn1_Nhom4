@@ -11,7 +11,6 @@ namespace BUS.IServices
     {
         bool Add(SanPham obj);
         bool Update(SanPham obj);
-        bool Delete(SanPham obj);
         List<SanPham> GetAll();
         List<SanPham> GetById(string input);
     }

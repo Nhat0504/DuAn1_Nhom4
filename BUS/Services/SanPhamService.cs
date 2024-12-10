@@ -25,11 +25,6 @@ namespace BUS.Services
             return true;
         }
 
-        public bool Delete(SanPham obj)
-        {
-            _isanPhamRepos.Delete(obj);
-            return true;
-        }
 
         public List<SanPham> GetAll()
         {
