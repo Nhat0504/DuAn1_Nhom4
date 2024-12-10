@@ -99,7 +99,7 @@ namespace GUI.Views
                 if (dialog == DialogResult.Yes)
                 {
                     return;
-                    
+
                 }
                 try
                 {
@@ -115,7 +115,7 @@ namespace GUI.Views
                     };
                     _iSanPhamservice.Add(a);
                     MessageBox.Show("Thêm thành công");
-                    reset();
+                    sd();
                 }
                 catch (Exception ex)
                 {
@@ -164,13 +164,13 @@ namespace GUI.Views
 
                     MessageBox.Show("Sửa thành công");
                     sd();
-                  
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi");
                 }
-               
+
             }
         }
 
@@ -243,6 +243,11 @@ namespace GUI.Views
         private void Btn_Clear_Click(object sender, EventArgs e)
         {
             reset();
+        }
+
+        private void txt_TimKiem_TextChanged(object sender, EventArgs e)
+        {
+            //LoadDataFormDb(txt_TimKiem.Text);
         }
     }
 }

@@ -41,8 +41,9 @@
             button3 = new Button();
             txt_MaCTSP = new TextBox();
             panel1 = new Panel();
-            cbx_Mau = new ComboBox();
             cbx_MaSp = new ComboBox();
+            cbx_Mau = new ComboBox();
+            textBox1 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgv_CTSP).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -124,7 +125,7 @@
             // 
             // btn_Them
             // 
-            btn_Them.Location = new Point(357, 309);
+            btn_Them.Location = new Point(354, 276);
             btn_Them.Name = "btn_Them";
             btn_Them.Size = new Size(94, 29);
             btn_Them.TabIndex = 13;
@@ -134,7 +135,7 @@
             // 
             // btn_Sua
             // 
-            btn_Sua.Location = new Point(632, 309);
+            btn_Sua.Location = new Point(634, 276);
             btn_Sua.Name = "btn_Sua";
             btn_Sua.Size = new Size(94, 29);
             btn_Sua.TabIndex = 14;
@@ -144,12 +145,13 @@
             // 
             // button3
             // 
-            button3.Location = new Point(869, 309);
+            button3.Location = new Point(879, 276);
             button3.Name = "button3";
             button3.Size = new Size(94, 29);
             button3.TabIndex = 15;
             button3.Text = "Clear";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // txt_MaCTSP
             // 
@@ -160,6 +162,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(textBox1);
             panel1.Controls.Add(cbx_MaSp);
             panel1.Controls.Add(cbx_Mau);
             panel1.Controls.Add(btn_Them);
@@ -179,6 +182,14 @@
             panel1.Size = new Size(1259, 694);
             panel1.TabIndex = 17;
             // 
+            // cbx_MaSp
+            // 
+            cbx_MaSp.FormattingEnabled = true;
+            cbx_MaSp.Location = new Point(184, 139);
+            cbx_MaSp.Name = "cbx_MaSp";
+            cbx_MaSp.Size = new Size(205, 28);
+            cbx_MaSp.TabIndex = 18;
+            // 
             // cbx_Mau
             // 
             cbx_Mau.FormattingEnabled = true;
@@ -187,13 +198,12 @@
             cbx_Mau.Size = new Size(205, 28);
             cbx_Mau.TabIndex = 17;
             // 
-            // cbx_MaSp
+            // textBox1
             // 
-            cbx_MaSp.FormattingEnabled = true;
-            cbx_MaSp.Location = new Point(184, 139);
-            cbx_MaSp.Name = "cbx_MaSp";
-            cbx_MaSp.Size = new Size(205, 28);
-            cbx_MaSp.TabIndex = 18;
+            textBox1.Location = new Point(471, 363);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(385, 27);
+            textBox1.TabIndex = 19;
             // 
             // CTSPUserControl
             // 
@@ -226,5 +236,6 @@
         private Panel panel1;
         private ComboBox cbx_Mau;
         private ComboBox cbx_MaSp;
+        private TextBox textBox1;
     }
 }

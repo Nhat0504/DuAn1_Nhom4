@@ -178,8 +178,8 @@ namespace GUI.Views
                     }
 
                     // Cập nhật thông tin sản phẩm
-                    
-                    
+
+
 
                     MessageBox.Show("Sửa thành công");
                     Reset();
@@ -191,6 +191,11 @@ namespace GUI.Views
                 }
 
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Reset();
         }
     }
 }

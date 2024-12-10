@@ -50,6 +50,7 @@
             label1 = new Label();
             button2 = new Button();
             panel1 = new Panel();
+            txt_TimKiem = new TextBox();
             groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgrid_SanPham).BeginInit();
             groupBox4.SuspendLayout();
@@ -58,12 +59,13 @@
             // 
             // groupBox5
             // 
+            groupBox5.Controls.Add(txt_TimKiem);
             groupBox5.Controls.Add(dgrid_SanPham);
             groupBox5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox5.ForeColor = SystemColors.ControlLightLight;
             groupBox5.Location = new Point(17, 372);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(1234, 342);
+            groupBox5.Size = new Size(1234, 379);
             groupBox5.TabIndex = 4;
             groupBox5.TabStop = false;
             groupBox5.Text = "Danh Sách Sản phẩm";
@@ -72,10 +74,10 @@
             // 
             dgrid_SanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgrid_SanPham.GridColor = SystemColors.ActiveBorder;
-            dgrid_SanPham.Location = new Point(6, 26);
+            dgrid_SanPham.Location = new Point(6, 57);
             dgrid_SanPham.Name = "dgrid_SanPham";
             dgrid_SanPham.RowHeadersWidth = 51;
-            dgrid_SanPham.Size = new Size(1222, 310);
+            dgrid_SanPham.Size = new Size(1222, 316);
             dgrid_SanPham.TabIndex = 0;
             dgrid_SanPham.CellClick += dgrid_SanPham_CellClick;
             // 
@@ -301,6 +303,14 @@
             panel1.Size = new Size(1259, 794);
             panel1.TabIndex = 5;
             // 
+            // txt_TimKiem
+            // 
+            txt_TimKiem.Location = new Point(349, 24);
+            txt_TimKiem.Name = "txt_TimKiem";
+            txt_TimKiem.Size = new Size(413, 27);
+            txt_TimKiem.TabIndex = 6;
+            txt_TimKiem.TextChanged += txt_TimKiem_TextChanged;
+            // 
             // SanPhamUserControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -309,6 +319,7 @@
             Name = "SanPhamUserControl";
             Size = new Size(1265, 800);
             groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgrid_SanPham).EndInit();
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
@@ -339,5 +350,6 @@
         private Panel panel1;
         private Label label5;
         private ComboBox cbx_MaloaiSP;
+        private TextBox txt_TimKiem;
     }
 }
