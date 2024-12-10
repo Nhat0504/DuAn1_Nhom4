@@ -29,12 +29,6 @@ namespace DAL.Repository
             _dbContext.SaveChanges();
             return true;
         }
-        public bool Delete(SanPham obj)
-        {
-            _dbContext.SanPhams.Remove(obj);
-            _dbContext.SaveChanges();
-            return true;
-        }
         public List<SanPham> GetAll()
         {
             sanPhams = _dbContext.SanPhams.ToList();
