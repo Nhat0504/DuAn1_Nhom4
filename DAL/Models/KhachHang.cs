@@ -11,13 +11,13 @@ public partial class KhachHang
 
     public string? DiaChi { get; set; }
 
-    public string? Sdt { get; set; }
+    public int? Sdt { get; set; }
 
     public string? Email { get; set; }
 
-    public string? GioiTinh { get; set; }
+    public int? GioiTinh { get; set; }
 
-    public DateOnly? NgaySinh { get; set; }
+    public DateTime? NgaySinh { get; set; }
 
     public virtual ICollection<HoaDon> HoaDons { get; set; } = new List<HoaDon>();
 }
