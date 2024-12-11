@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.ComponentModel;
 using BUS;
 using DAL;
 using System.Text.RegularExpressions;
-using DTO;
+using DAL.Models;
 
 namespace GUI.Views
 {
@@ -20,8 +20,9 @@ namespace GUI.Views
         {
             InitializeComponent();
             LoadData();
-            InitializeDataGridView();
-            
+            LoadDataGridView();
+            InitializeCurrentCTHD();
+
         }
 
         private void LoadData()
@@ -73,10 +74,17 @@ namespace GUI.Views
 
         private bool IsValidPhoneNumber(string phoneNumber)
         {
-           
+            // Kiểm tra nếu người dùng nhập 1 số "0"
+            if (phoneNumber == "0")
+            {
+                return true;
+            }
+
+            // Kiểm tra nếu người dùng nhập 10 số
             var regex = new System.Text.RegularExpressions.Regex(@"^0\d{9}$");
             return regex.IsMatch(phoneNumber);
         }
+
 
 
         private bool GetCustomerNameByPhone(string phoneNumber)
@@ -176,56 +184,70 @@ namespace GUI.Views
 
 
 
-        private void InitializeDataGridView()
+        // Biến lưu giữ thông tin mã tự động tăng
+        private int _currentCTHD = 1; // Biến khởi tạo mã tự động tăng dần
+
+        // Khai báo DataGridView
+        
+
+        // Load DataGridView cho giao diện
+        private void LoadDataGridView()
         {
-            // Xóa cấu hình cột cũ
-            dtgvHoaDonCho.Columns.Clear();
+            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=QuanLyBanQuanAo;Integrated Security=True";
 
-            // Thêm các cột mới
-            dtgvHoaDonCho.Columns.Add("MaSanPham", "Mã Sản Phẩm");
-            dtgvHoaDonCho.Columns.Add("MaHoaDon", "Mã Hóa Đơn");
-            dtgvHoaDonCho.Columns.Add("DonGiaSanPham", "Đơn Giá"); // Đơn Giá cho 1 sản phẩm
-            dtgvHoaDonCho.Columns.Add("SoLuong", "Số Lượng");
-            dtgvHoaDonCho.Columns.Add("ThanhTien", "Thành Tiền"); // Đổi tên từ DonGia sang Thành Tiền
-
-            // Định dạng hiển thị số lượng, đơn giá và thành tiền
-            dtgvHoaDonCho.Columns["DonGiaSanPham"].DefaultCellStyle.Format = "N0";
-            dtgvHoaDonCho.Columns["SoLuong"].DefaultCellStyle.Format = "N0";
-            dtgvHoaDonCho.Columns["ThanhTien"].DefaultCellStyle.Format = "N0";
-
-            // Cài đặt chế độ đọc và kích thước cột
-            foreach (DataGridViewColumn col in dtgvHoaDonCho.Columns)
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                col.ReadOnly = true; // Không cho phép chỉnh sửa
-                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT * FROM SanPham";
+                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    dataGridView2.DataSource = dt;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Không thể load dữ liệu từ database: {ex.Message}");
+                }
+            }
+        }
+
+        // Cập nhật giao diện sau khi giảm số lượng sản phẩm
+        private void UpdateGridView(string maSanPham, int soLuongTru)
+        {
+            foreach (DataGridViewRow row in dataGridView2.Rows)
+            {
+                if (row.Cells["MaSanPham"].Value?.ToString() == maSanPham)
+                {
+                    int currentQuantity = int.Parse(row.Cells["SoLuong"].Value.ToString());
+                    row.Cells["SoLuong"].Value = currentQuantity - soLuongTru;
+                    break;
+                }
             }
         }
 
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) 
+            if (e.RowIndex >= 0)
             {
-                
                 string maSanPham = dataGridView2.Rows[e.RowIndex].Cells["MaSanPham"].Value.ToString();
                 int maxSoLuong = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["SoLuong"].Value.ToString());
                 decimal gia = decimal.Parse(dataGridView2.Rows[e.RowIndex].Cells["Gia"].Value.ToString());
 
-                
                 using (var form = new InputQuantityForm(maxSoLuong))
                 {
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        
                         int soLuong = form.SoLuong;
 
-                       
                         AddRowToHoaDonCho(maSanPham, gia, soLuong);
                     }
                 }
             }
         }
-
 
         private void AddRowToHoaDonCho(string maSanPham, decimal gia, int soLuong)
         {
@@ -236,7 +258,6 @@ namespace GUI.Views
             }
 
             string maHoaDon = cboHoaDon.SelectedItem.ToString();
-
             bool isProductExists = false;
 
             foreach (DataGridViewRow row in dtgvHoaDonCho.Rows)
@@ -244,11 +265,13 @@ namespace GUI.Views
                 if (row.Cells["MaSanPham"].Value?.ToString() == maSanPham &&
                     row.Cells["MaHoaDon"].Value?.ToString() == maHoaDon)
                 {
+                    isProductExists = true;
                     int currentQuantity = int.Parse(row.Cells["SoLuong"].Value.ToString());
                     row.Cells["SoLuong"].Value = currentQuantity + soLuong;
                     row.Cells["ThanhTien"].Value = (currentQuantity + soLuong) * gia;
 
-                    isProductExists = true;
+                    SaveToChiTietHoaDon(maHoaDon, maSanPham, currentQuantity + soLuong, gia, (currentQuantity + soLuong) * gia);
+
                     break;
                 }
             }
@@ -256,11 +279,24 @@ namespace GUI.Views
             if (!isProductExists)
             {
                 decimal thanhTien = gia * soLuong;
-                dtgvHoaDonCho.Rows.Add(maSanPham, maHoaDon, gia, soLuong, thanhTien);
-            }
 
-            // Cập nhật số lượng sản phẩm trong cơ sở dữ liệu và giao diện
-            UpdateProductQuantity(maSanPham, soLuong);
+                if (dtgvHoaDonCho.Columns.Count == 0)
+                {
+                    dtgvHoaDonCho.Columns.Add("MaCTHD", "Mã CTHD");
+                    dtgvHoaDonCho.Columns.Add("MaSanPham", "Mã Sản Phẩm");
+                    dtgvHoaDonCho.Columns.Add("MaHoaDon", "Mã Hóa Đơn");
+                    dtgvHoaDonCho.Columns.Add("Gia", "Giá");
+                    dtgvHoaDonCho.Columns.Add("SoLuong", "Số Lượng");
+                    dtgvHoaDonCho.Columns.Add("ThanhTien", "Thành Tiền");
+                }
+
+                dtgvHoaDonCho.Rows.Add(_currentCTHD, maSanPham, maHoaDon, gia, soLuong, thanhTien);
+
+                _currentCTHD++;
+                UpdateProductQuantity(maSanPham, soLuong);
+                SaveToChiTietHoaDon(maHoaDon, maSanPham, soLuong, gia, thanhTien);
+                
+            }
         }
 
         private void UpdateProductQuantity(string maSanPham, int soLuongTru)
@@ -272,7 +308,6 @@ namespace GUI.Views
                 {
                     conn.Open();
 
-                    // Trừ số lượng sản phẩm trong cơ sở dữ liệu
                     string updateQuery = "UPDATE SanPham SET SoLuong = SoLuong - @SoLuong WHERE MaSanPham = @MaSanPham AND SoLuong >= @SoLuong";
                     using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
                     {
@@ -283,7 +318,6 @@ namespace GUI.Views
 
                         if (rowsAffected > 0)
                         {
-                            // Nếu thành công, cập nhật lại giao diện
                             UpdateGridView(maSanPham, soLuongTru);
                         }
                         else
@@ -294,33 +328,10 @@ namespace GUI.Views
                 }
                 catch (Exception ex)
                 {
-
                     MessageBox.Show($"Lỗi khi cập nhật số lượng sản phẩm: {ex.Message}");
                 }
             }
         }
-
-        private void UpdateGridView(string maSanPham, int soLuongTru)
-        {
-            foreach (DataGridViewRow row in dataGridView2.Rows)
-            {
-                if (row.Cells["MaSanPham"].Value?.ToString() == maSanPham)
-                {
-                    int currentQuantity = int.Parse(row.Cells["SoLuong"].Value.ToString());
-                    row.Cells["SoLuong"].Value = currentQuantity - soLuongTru;
-
-                    if (currentQuantity - soLuongTru <= 0)
-                    {
-                        row.DefaultCellStyle.BackColor = Color.Red; // Hiển thị sản phẩm đã hết hàng
-                    }
-
-                    break;
-                }
-            }
-        }
-
-
-
 
 
 
@@ -346,10 +357,10 @@ namespace GUI.Views
         {
             if (e.RowIndex >= 0)
             {
-                // Lấy mã hóa đơn từ dòng được chọn
+                
                 string maHoaDon = dtgvHoaDonCho.Rows[e.RowIndex].Cells["MaHoaDon"].Value.ToString();
 
-                // Hiển thị tổng tiền cho mã hóa đơn được chọn
+                
                 HienThiTongTien(maHoaDon);
             }
         }
@@ -360,17 +371,21 @@ namespace GUI.Views
 
             foreach (DataGridViewRow row in dtgvHoaDonCho.Rows)
             {
-                // Lọc các dòng có mã hóa đơn trùng khớp
+                
                 if (row.Cells["MaHoaDon"].Value?.ToString() == maHoaDon)
                 {
-                    decimal thanhTien = decimal.Parse(row.Cells["ThanhTien"].Value.ToString());
-                    tongTien += thanhTien;
+                   
+                    if (row.Cells["ThanhTien"]?.Value != null && decimal.TryParse(row.Cells["ThanhTien"].Value.ToString(), out decimal thanhTien))
+                    {
+                        tongTien += thanhTien;
+                    }
                 }
             }
 
-            // Hiển thị tổng tiền lên label9
+          
             label9.Text = tongTien.ToString("N0");
         }
+
 
         private void txtTienKhachDua_TextChanged(object sender, EventArgs e)
         {
@@ -404,6 +419,7 @@ namespace GUI.Views
         }
 
 
+        
         private void cboHoaDon_SelectedIndexChanged(object sender, EventArgs e)
         {
             string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=QuanLyBanQuanAo;Integrated Security=True";
@@ -418,10 +434,10 @@ namespace GUI.Views
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         string query = @"
-                SELECT k.TenKhachHang, k.SDT
-                FROM HoaDon h
-                LEFT JOIN KhachHang k ON h.MaKhachHang = k.MaKhachHang
-                WHERE h.MaHoaDon = @MaHoaDon";
+               SELECT k.TenKhachHang, k.SDT
+               FROM ChiTietHoaDon h
+               INNER JOIN KhachHang k ON h.MaKhachHang = k.MaKhachHang
+               WHERE h.MaHoaDon = @MaHoaDon";
 
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
@@ -439,8 +455,7 @@ namespace GUI.Views
                                 }
                                 else
                                 {
-                                    // Không tìm thấy dữ liệu, xóa thông tin cũ
-                                   
+                                    
                                 }
                             }
                         }
@@ -483,7 +498,7 @@ namespace GUI.Views
                     string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=QuanLyBanQuanAo;Integrated Security=True";
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        string query = "UPDATE HoaDon SET TrangThai = 'Đã thanh toán' WHERE MaHoaDon = @MaHoaDon";
+                        string query = "UPDATE ChiTietHoaDon SET TrangThai = 'Đã thanh toán' WHERE MaHoaDon = @MaHoaDon";
                         using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
                             cmd.Parameters.AddWithValue("@MaHoaDon", selectedMaHoaDon);
@@ -492,14 +507,33 @@ namespace GUI.Views
                         }
                     }
 
-                    // Xóa hóa đơn khỏi giao diện
+                 
                     RemoveInvoiceFromUI(selectedMaHoaDon);
 
-                    // Reset giao diện
+                  
                     ResetUI();
 
                     MessageBox.Show("Thanh toán thành công!");
-                    SaveInvoiceDetailsToDatabase();
+
+                    
+                    if (dtgvHoaDonCho.SelectedRows.Count > 0) 
+                    {
+                        DataGridViewRow selectedRow = dtgvHoaDonCho.SelectedRows[0];
+
+                        string maHoaDon = cboHoaDon.SelectedItem.ToString();
+                        string maSanPham = selectedRow.Cells["MaSanPhamColumn"].Value.ToString(); 
+                        int soLuong = int.Parse(selectedRow.Cells["SoLuongColumn"].Value.ToString()); 
+                        decimal donGia = decimal.Parse(selectedRow.Cells["GiaColumn"].Value.ToString());
+                        decimal thanhTien = donGia * soLuong; // Tính thành tiền
+
+                      
+                        SaveToChiTietHoaDon(maHoaDon, maSanPham, soLuong, donGia, thanhTien);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Vui lòng chọn một dòng từ danh sách.");
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -512,50 +546,56 @@ namespace GUI.Views
             }
         }
 
-        private void SaveInvoiceDetailsToDatabase()
+
+        private void SaveToChiTietHoaDon(string maHoaDon, string maSanPham, int soLuong, decimal donGia, decimal thanhTien)
         {
             string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=QuanLyBanQuanAo;Integrated Security=True";
-
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
+                    string query = "INSERT INTO ChiTietHoaDon (MaCTHD, MaHoaDon, MaSanPham, SoLuong, DonGia, ThanhTien, NgayTaoHoaDon) VALUES (@MaCTHD, @MaHoaDon, @MaSanPham, @SoLuong, @DonGia, @ThanhTien, @NgayTaoHoaDon)";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@MaCTHD", _currentCTHD);
+                    cmd.Parameters.AddWithValue("@MaHoaDon", maHoaDon);
+                    cmd.Parameters.AddWithValue("@MaSanPham", maSanPham);
+                    cmd.Parameters.AddWithValue("@SoLuong", soLuong);
+                    cmd.Parameters.AddWithValue("@DonGia", donGia);  // Tham số cho đơn giá
+                    cmd.Parameters.AddWithValue("@ThanhTien", thanhTien);
+                    cmd.Parameters.AddWithValue("@NgayTaoHoaDon", DateTime.Now);
 
-                    foreach (DataGridViewRow row in dtgvHoaDonCho.Rows)
-                    {
-                        if (row.IsNewRow) continue; // Bỏ qua hàng mới trống
 
-                        string maHoaDon = row.Cells["MaHoaDon"].Value.ToString();
-                        string maSanPham = row.Cells["MaSanPham"].Value.ToString();
-                        decimal donGia = decimal.Parse(row.Cells["DonGiaSanPham"].Value.ToString());
-                        int soLuong = int.Parse(row.Cells["SoLuong"].Value.ToString());
-                        decimal thanhTien = decimal.Parse(row.Cells["ThanhTien"].Value.ToString());
-
-                        string query = @"INSERT INTO ChiTietHoaDon (MaHoaDon, MaSanPham, DonGia, SoLuong, ThanhTien) 
-                                 VALUES (@MaHoaDon, @MaSanPham, @DonGia, @SoLuong, @ThanhTien)";
-
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@MaHoaDon", maHoaDon);
-                            cmd.Parameters.AddWithValue("@MaSanPham", maSanPham);
-                            cmd.Parameters.AddWithValue("@DonGia", donGia);
-                            cmd.Parameters.AddWithValue("@SoLuong", soLuong);
-                            cmd.Parameters.AddWithValue("@ThanhTien", thanhTien);
-
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-
-                    MessageBox.Show("Thông tin hóa đơn đã được lưu thành công.");
+                    cmd.ExecuteNonQuery();
+                    _currentCTHD++; 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Lỗi khi lưu thông tin hóa đơn: {ex.Message}");
+                    MessageBox.Show($"Lỗi khi lưu chi tiết hóa đơn: {ex.Message}");
                 }
             }
         }
 
+
+
+        private void InitializeCurrentCTHD()
+        {
+            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=QuanLyBanQuanAo;Integrated Security=True";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT ISNULL(MAX(MaCTHD), 0) FROM ChiTietHoaDon";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    _currentCTHD = (int)cmd.ExecuteScalar() + 1; // Bắt đầu từ mã lớn nhất + 1
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi khởi tạo MaCTHD: {ex.Message}");
+                }
+            }
+        }
 
 
 
@@ -571,10 +611,10 @@ namespace GUI.Views
 
             try
             {
-                // Xóa hóa đơn khỏi giao diện
+                
                 RemoveInvoiceFromUI(selectedMaHoaDon);
 
-                // Reset giao diện
+              
                 ResetUI();
 
                 MessageBox.Show("Hóa đơn đã được hủy!");
@@ -587,7 +627,7 @@ namespace GUI.Views
 
         private void RemoveInvoiceFromUI(int maHoaDon)
         {
-            // Xóa khỏi ComboBox
+            
             for (int i = 0; i < cboHoaDon.Items.Count; i++)
             {
                 if (Convert.ToInt32(cboHoaDon.Items[i]) == maHoaDon)
@@ -597,7 +637,7 @@ namespace GUI.Views
                 }
             }
 
-            // Xóa các dòng khỏi DataGridView
+            
             for (int i = dtgvHoaDonCho.Rows.Count - 1; i >= 0; i--)
             {
                 if (dtgvHoaDonCho.Rows[i].Cells["MaHoaDon"].Value != null &&
