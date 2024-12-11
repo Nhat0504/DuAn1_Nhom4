@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox5 = new GroupBox();
+            txt_TimKiem = new TextBox();
             dgrid_SanPham = new DataGridView();
             groupBox4 = new GroupBox();
             cbx_MaloaiSP = new ComboBox();
@@ -50,7 +51,6 @@
             label1 = new Label();
             button2 = new Button();
             panel1 = new Panel();
-            txt_TimKiem = new TextBox();
             groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgrid_SanPham).BeginInit();
             groupBox4.SuspendLayout();
@@ -69,6 +69,14 @@
             groupBox5.TabIndex = 4;
             groupBox5.TabStop = false;
             groupBox5.Text = "Danh Sách Sản phẩm";
+            // 
+            // txt_TimKiem
+            // 
+            txt_TimKiem.Location = new Point(349, 24);
+            txt_TimKiem.Name = "txt_TimKiem";
+            txt_TimKiem.Size = new Size(413, 27);
+            txt_TimKiem.TabIndex = 6;
+            txt_TimKiem.TextChanged += txt_TimKiem_TextChanged;
             // 
             // dgrid_SanPham
             // 
@@ -132,9 +140,9 @@
             // 
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = SystemColors.ControlText;
-            button1.Location = new Point(1014, 116);
+            button1.Location = new Point(1014, 103);
             button1.Name = "button1";
-            button1.Size = new Size(114, 53);
+            button1.Size = new Size(114, 78);
             button1.TabIndex = 18;
             button1.Text = "Loại Sản Phẩm";
             button1.UseVisualStyleBackColor = true;
@@ -302,14 +310,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1259, 794);
             panel1.TabIndex = 5;
-            // 
-            // txt_TimKiem
-            // 
-            txt_TimKiem.Location = new Point(349, 24);
-            txt_TimKiem.Name = "txt_TimKiem";
-            txt_TimKiem.Size = new Size(413, 27);
-            txt_TimKiem.TabIndex = 6;
-            txt_TimKiem.TextChanged += txt_TimKiem_TextChanged;
             // 
             // SanPhamUserControl
             // 

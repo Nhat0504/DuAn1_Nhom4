@@ -81,28 +81,31 @@ namespace GUI.Views
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
-            var maSanPhamCanTim = int.Parse(txt_ma.Text);
+            
+            int maSanPhamCanTim = int.Parse(txt_ma.Text);
             var p = _iSanPhamservice.GetAll().FirstOrDefault(x => x.MaSanPham == maSanPhamCanTim);
             var b = _loaiSPservice.GetAll().FirstOrDefault(x => x.MaLoaiSp == int.Parse(cbx_MaloaiSP.Text));
-            if (checknhap() == false)
-            {
-                MessageBox.Show("Không được để trống các trường", "Chú ý");
-            }
-            else if (p != null)
-            {
-                MessageBox.Show("Mã đã tồn tại", "Chú ý");
-            }
-            else
-            {
-                OpenFileDialog op = new OpenFileDialog();
-                DialogResult dialog = MessageBox.Show("Bạn có muốn thêm  không?", "Thêm", MessageBoxButtons.YesNo);
-                if (dialog == DialogResult.Yes)
-                {
-                    return;
 
-                }
+            // Kiểm tra dữ liệu nhập vào
+            if (!checknhap()) // Giả sử checknhap() trả về true nếu dữ liệu hợp lệ
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin", "Thông báo");
+                return;
+            }
+
+            if (p != null)
+            {
+                MessageBox.Show("Sản phẩm đã tồn tại", "Thông báo");
+                return;
+            }
+
+            // Xác nhận thêm sản phẩm
+            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thêm không?", "Xác nhận", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
                 try
                 {
+                    // Tạo đối tượng sản phẩm mới
                     var a = new SanPham()
                     {
                         MaSanPham = int.Parse(txt_ma.Text),
@@ -111,10 +114,11 @@ namespace GUI.Views
                         SoLuong = int.Parse(txt_SoLuong.Text),
                         MaLoaiSp = b.MaLoaiSp,
                         TrangThai = rb_KD.Checked == true ? 1 : 0,
-
                     };
+
+                    // Thêm sản phẩm vào cơ sở dữ liệu
                     _iSanPhamservice.Add(a);
-                    MessageBox.Show("Thêm thành công");
+                    MessageBox.Show("Thêm sản phẩm thành công");
                     sd();
                 }
                 catch (Exception ex)

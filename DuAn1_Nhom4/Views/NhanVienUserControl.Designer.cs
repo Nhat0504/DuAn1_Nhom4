@@ -39,8 +39,6 @@
             txt_DiaChi = new TextBox();
             txt_Email = new TextBox();
             textBox6 = new TextBox();
-            rb_Nam = new CheckBox();
-            rb_Nu = new CheckBox();
             btn_Add = new Button();
             button2 = new Button();
             btn_Xoa = new Button();
@@ -50,6 +48,9 @@
             dtp_Date = new DateTimePicker();
             label8 = new Label();
             txt_ChucVu = new TextBox();
+            Nam_rb = new RadioButton();
+            Nu_rb = new RadioButton();
+            label7 = new Label();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_NhanVien).BeginInit();
             SuspendLayout();
@@ -144,27 +145,6 @@
             textBox6.Size = new Size(267, 27);
             textBox6.TabIndex = 12;
             // 
-            // rb_Nam
-            // 
-            rb_Nam.AutoSize = true;
-            rb_Nam.Location = new Point(217, 191);
-            rb_Nam.Name = "rb_Nam";
-            rb_Nam.Size = new Size(65, 24);
-            rb_Nam.TabIndex = 13;
-            rb_Nam.Text = "Nam";
-            rb_Nam.UseVisualStyleBackColor = true;
-            rb_Nam.CheckedChanged += btn_Add_Click;
-            // 
-            // rb_Nu
-            // 
-            rb_Nu.AutoSize = true;
-            rb_Nu.Location = new Point(414, 191);
-            rb_Nu.Name = "rb_Nu";
-            rb_Nu.Size = new Size(53, 24);
-            rb_Nu.TabIndex = 14;
-            rb_Nu.Text = "Nữ";
-            rb_Nu.UseVisualStyleBackColor = true;
-            // 
             // btn_Add
             // 
             btn_Add.ForeColor = SystemColors.ControlText;
@@ -185,6 +165,7 @@
             button2.TabIndex = 18;
             button2.Text = "Sửa";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // btn_Xoa
             // 
@@ -216,6 +197,7 @@
             dgv_NhanVien.RowHeadersWidth = 51;
             dgv_NhanVien.Size = new Size(1403, 243);
             dgv_NhanVien.TabIndex = 0;
+            dgv_NhanVien.CellClick += dgv_NhanVien_CellClick;
             dgv_NhanVien.CellContentClick += dgv_NhanVien_CellContentClick;
             // 
             // txt_Ma
@@ -251,10 +233,44 @@
             txt_ChucVu.Size = new Size(250, 27);
             txt_ChucVu.TabIndex = 25;
             // 
+            // Nam_rb
+            // 
+            Nam_rb.AutoSize = true;
+            Nam_rb.Location = new Point(217, 193);
+            Nam_rb.Name = "Nam_rb";
+            Nam_rb.Size = new Size(64, 24);
+            Nam_rb.TabIndex = 26;
+            Nam_rb.TabStop = true;
+            Nam_rb.Text = "Nam";
+            Nam_rb.UseVisualStyleBackColor = true;
+            // 
+            // Nu_rb
+            // 
+            Nu_rb.AutoSize = true;
+            Nu_rb.Location = new Point(384, 191);
+            Nu_rb.Name = "Nu_rb";
+            Nu_rb.Size = new Size(52, 24);
+            Nu_rb.TabIndex = 27;
+            Nu_rb.TabStop = true;
+            Nu_rb.Text = "Nữ";
+            Nu_rb.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(620, 279);
+            label7.Name = "label7";
+            label7.Size = new Size(67, 20);
+            label7.TabIndex = 28;
+            label7.Text = "Chức Vụ";
+            // 
             // NhanVienUserControl
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(label7);
+            Controls.Add(Nu_rb);
+            Controls.Add(Nam_rb);
             Controls.Add(txt_ChucVu);
             Controls.Add(label8);
             Controls.Add(dtp_Date);
@@ -264,8 +280,6 @@
             Controls.Add(btn_Xoa);
             Controls.Add(button2);
             Controls.Add(btn_Add);
-            Controls.Add(rb_Nu);
-            Controls.Add(rb_Nam);
             Controls.Add(txt_Email);
             Controls.Add(txt_DiaChi);
             Controls.Add(txt_SDT);
@@ -299,7 +313,7 @@
         private TextBox txt_DiaChi;
         private TextBox txt_Email;
         private TextBox textBox6;
-        private CheckBox rb_Nam;
+        private CheckBox rb;
         private CheckBox rb_Nu;
         private Button btn_Add;
         private Button button2;
@@ -310,5 +324,8 @@
         private DateTimePicker dtp_Date;
         private Label label8;
         private TextBox txt_ChucVu;
+        private RadioButton Nam_rb;
+        private RadioButton Nu_rb;
+        private Label label7;
     }
 }
